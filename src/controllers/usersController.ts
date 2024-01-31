@@ -2,8 +2,9 @@ import {
   deleteUserById,
   getAllUsers,
   registerUser,
+  transferBalance,
   updateUserById,
-} from "./usersModel";
+} from "../models/usersModel";
 
 export const getAll = async (req: any, res: any) => {
   const users = await getAllUsers();
@@ -28,5 +29,12 @@ export const deleteUser = async (req: any, res: any) => {
 export const updateUser = async (req: any, res: any) => {
   const { id } = req.params;
   await updateUserById(id, req.body);
+  return res.status(204).json();
+};
+
+export const transfer = async (req: any, res: any) => {
+  const { senderId, receiverId } = req.params;
+
+  await transferBalance(req.body, senderId, receiverId);
   return res.status(204).json();
 };
